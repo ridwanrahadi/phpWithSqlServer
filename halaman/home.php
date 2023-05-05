@@ -4,7 +4,7 @@
                     $tahun=date('Y'); 
                     $username_login=$_SESSION['username'];
                     $sql = "SELECT * from tblpengguna where username='".$username_login."'" ;
-                    $stmt  = sqlsrv_query($conn,$sql) or die ("Query  salah:".sqlsrv_error());
+                    $stmt  = sqlsrv_query($conn,$sql) or die(print_r(sqlsrv_errors(), true));
                     while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
                       $DivisiLogin = $row['Divisi'];
                       }
@@ -31,29 +31,29 @@
                                     GROUP BY MONTH(TblFak.Tgl), YEAR(TblFak.Tgl)
                                     HAVING (YEAR(TblFak.Tgl) = '".$tahun."')
                                     ORDER BY MONTH(TblFak.Tgl) ASC";
-  $stmtBulan = sqlsrv_query($conn,$sql1) or die ("Query  salah:".sqlsrv_error());
+  $stmtBulan = sqlsrv_query($conn,$sql1) or die(print_r(sqlsrv_errors(), true));
   $sql2="SELECT MONTH(TblFak.Tgl) AS Bulan, YEAR(TblFak.Tgl) AS Tahun, SUM(TblFak.SubTotal-TblFak.Discount) AS Total
                                     FROM TblFak
                                     GROUP BY MONTH(TblFak.Tgl), YEAR(TblFak.Tgl)
                                     HAVING (YEAR(TblFak.Tgl) = '".$tahun."')
                                     ORDER BY MONTH(TblFak.Tgl) ASC";
-  $stmtTotal = sqlsrv_query($conn,$sql2) or die ("Query  salah:".sqlsrv_error());
+  $stmtTotal = sqlsrv_query($conn,$sql2) or die(print_r(sqlsrv_errors(), true));
  }else{
 
-  $sql1="SELECT MONTH(TblFak.Tgl) AS Bulan, YEAR(TblFak.Tgl) AS Tahun, SUM(TblFak.SubTotal-TblFak.Discount) AS Total,tblSalesPerson.DIVISI
-                                    FROM TblFak INNER JOIN
-                                    tblSalesPerson ON TblFak.KdSales = tblSalesPerson.KDSALES
-                                    GROUP BY MONTH(TblFak.Tgl), YEAR(TblFak.Tgl),tblSalesPerson.DIVISI
-                                    HAVING (YEAR(TblFak.Tgl) = '".$tahun."') AND (tblSalesPerson.DIVISI = '".$DivisiLogin."')
-                                    ORDER BY MONTH(TblFak.Tgl) ASC";
-  $stmtBulan = sqlsrv_query($conn,$sql1) or die ("Query  salah:".sqlsrv_error());
-  $sql2="SELECT MONTH(TblFak.Tgl) AS Bulan, YEAR(TblFak.Tgl) AS Tahun, SUM(TblFak.SubTotal-TblFak.Discount) AS Total,tblSalesPerson.DIVISI
-                                    FROM TblFak INNER JOIN
-                                    tblSalesPerson ON TblFak.KdSales = tblSalesPerson.KDSALES
-                                    GROUP BY MONTH(TblFak.Tgl), YEAR(TblFak.Tgl),tblSalesPerson.DIVISI
-                                    HAVING (YEAR(TblFak.Tgl) = '".$tahun."') AND (tblSalesPerson.DIVISI = '".$DivisiLogin."')
-                                    ORDER BY MONTH(TblFak.Tgl) ASC";
-  $stmtTotal = sqlsrv_query($conn,$sql2) or die ("Query  salah:".sqlsrv_error());
+  $sql1="SELECT MONTH(TblFak.Tgl) AS Bulan, YEAR(TblFak.Tgl) AS Tahun, SUM(TblFak.SubTotal-TblFak.Discount) AS Total,tblSalesPerson.SEKTOR_DIV
+  FROM TblFak INNER JOIN
+  tblSalesPerson ON TblFak.KdSales = tblSalesPerson.KDSALES
+  GROUP BY MONTH(TblFak.Tgl), YEAR(TblFak.Tgl),tblSalesPerson.SEKTOR_DIV
+  HAVING (YEAR(TblFak.Tgl) = '".$tahun."') AND (tblSalesPerson.SEKTOR_DIV = '".$DivisiLogin."')
+  ORDER BY MONTH(TblFak.Tgl) ASC";
+  $stmtBulan = sqlsrv_query($conn,$sql1) or die(print_r(sqlsrv_errors(), true));
+  $sql2="SELECT MONTH(TblFak.Tgl) AS Bulan, YEAR(TblFak.Tgl) AS Tahun, SUM(TblFak.SubTotal-TblFak.Discount) AS Total,tblSalesPerson.SEKTOR_DIV
+  FROM TblFak INNER JOIN
+  tblSalesPerson ON TblFak.KdSales = tblSalesPerson.KDSALES
+  GROUP BY MONTH(TblFak.Tgl), YEAR(TblFak.Tgl),tblSalesPerson.SEKTOR_DIV
+  HAVING (YEAR(TblFak.Tgl) = '".$tahun."') AND (tblSalesPerson.SEKTOR_DIV = '".$DivisiLogin."')
+  ORDER BY MONTH(TblFak.Tgl) ASC";
+  $stmtTotal = sqlsrv_query($conn,$sql2) or die(print_r(sqlsrv_errors(), true));
 
 
 
@@ -118,26 +118,26 @@
                                     tblSalesPerson ON TblFak.KdSales = tblSalesPerson.KDSALES
                                     GROUP BY MONTH(TblFak.Tgl), YEAR(TblFak.Tgl), tblSalesPerson.DIVISI
                                     HAVING (MONTH(TblFak.Tgl) = '".$bulan."') AND (YEAR(TblFak.Tgl) = '".$tahun."')";
-  $DIVISI = sqlsrv_query($conn,$mySql) or die ("Query  salah:".sqlsrv_error());
+  $DIVISI = sqlsrv_query($conn,$mySql) or die(print_r(sqlsrv_errors(), true));
   $mySql2="SELECT MONTH(TblFak.Tgl) AS Bulan, YEAR(TblFak.Tgl) AS Tahun, SUM(TblFak.SubTotal-TblFak.Discount) AS Total, tblSalesPerson.DIVISI
                                     FROM TblFak INNER JOIN
                                     tblSalesPerson ON TblFak.KdSales = tblSalesPerson.KDSALES
                                     GROUP BY MONTH(TblFak.Tgl), YEAR(TblFak.Tgl), tblSalesPerson.DIVISI
                                     HAVING (MONTH(TblFak.Tgl) = '".$bulan."') AND (YEAR(TblFak.Tgl) = '".$tahun."')";
-  $Total = sqlsrv_query($conn,$mySql2) or die ("Query  salah:".sqlsrv_error());
+  $Total = sqlsrv_query($conn,$mySql2) or die(print_r(sqlsrv_errors(), true));
 }else{
-  $mySql="SELECT MONTH(TblFak.Tgl) AS Bulan, YEAR(TblFak.Tgl) AS Tahun, SUM(TblFak.SubTotal-TblFak.Discount) AS Total, tblSalesPerson.DIVISI,tblSalesPerson.DIVISI
-                                    FROM TblFak INNER JOIN
-                                    tblSalesPerson ON TblFak.KdSales = tblSalesPerson.KDSALES
-                                    GROUP BY MONTH(TblFak.Tgl), YEAR(TblFak.Tgl), tblSalesPerson.DIVISI,tblSalesPerson.DIVISI
-                                    HAVING (MONTH(TblFak.Tgl) = '".$bulan."') AND (YEAR(TblFak.Tgl) = '".$tahun."') AND (tblSalesPerson.DIVISI = '".$DivisiLogin."')";
-  $DIVISI = sqlsrv_query($conn,$mySql) or die ("Query  salah:".sqlsrv_error());
-  $mySql2="SELECT MONTH(TblFak.Tgl) AS Bulan, YEAR(TblFak.Tgl) AS Tahun, SUM(TblFak.SubTotal-TblFak.Discount) AS Total, tblSalesPerson.DIVISI,tblSalesPerson.DIVISI
-                                    FROM TblFak INNER JOIN
-                                    tblSalesPerson ON TblFak.KdSales = tblSalesPerson.KDSALES
-                                    GROUP BY MONTH(TblFak.Tgl), YEAR(TblFak.Tgl), tblSalesPerson.DIVISI,tblSalesPerson.DIVISI
-                                    HAVING (MONTH(TblFak.Tgl) = '".$bulan."') AND (YEAR(TblFak.Tgl) = '".$tahun."') AND (tblSalesPerson.DIVISI = '".$DivisiLogin."')";
-  $Total = sqlsrv_query($conn,$mySql2) or die ("Query  salah:".sqlsrv_error());
+  $mySql="SELECT MONTH(TblFak.Tgl) AS Bulan, YEAR(TblFak.Tgl) AS Tahun, SUM(TblFak.SubTotal-TblFak.Discount) AS Total, tblSalesPerson.DIVISI,tblSalesPerson.SEKTOR_DIV
+  FROM TblFak INNER JOIN
+  tblSalesPerson ON TblFak.KdSales = tblSalesPerson.KDSALES
+  GROUP BY MONTH(TblFak.Tgl), YEAR(TblFak.Tgl), tblSalesPerson.DIVISI,tblSalesPerson.SEKTOR_DIV
+  HAVING      (MONTH(TblFak.Tgl) = '".$bulan."') AND (YEAR(TblFak.Tgl) = '".$tahun."') AND (tblSalesPerson.SEKTOR_DIV = '".$DivisiLogin."')";
+  $DIVISI = sqlsrv_query($conn,$mySql) or die(print_r(sqlsrv_errors(), true));
+  $mySql2="SELECT MONTH(TblFak.Tgl) AS Bulan, YEAR(TblFak.Tgl) AS Tahun, SUM(TblFak.SubTotal-TblFak.Discount) AS Total, tblSalesPerson.DIVISI,tblSalesPerson.SEKTOR_DIV
+  FROM TblFak INNER JOIN
+  tblSalesPerson ON TblFak.KdSales = tblSalesPerson.KDSALES
+  GROUP BY MONTH(TblFak.Tgl), YEAR(TblFak.Tgl), tblSalesPerson.DIVISI,tblSalesPerson.SEKTOR_DIV
+  HAVING      (MONTH(TblFak.Tgl) = '".$bulan."') AND (YEAR(TblFak.Tgl) = '".$tahun."') AND (tblSalesPerson.SEKTOR_DIV = '".$DivisiLogin."')";
+  $Total = sqlsrv_query($conn,$mySql2) or die(print_r(sqlsrv_errors(), true));
    
 }
 ?>
@@ -204,7 +204,7 @@
                                     tblSalesPerson ON TblFak.KdSales = tblSalesPerson.KDSALES
                                     GROUP BY TblFak.KdSales, MONTH(TblFak.Tgl), YEAR(TblFak.Tgl), tblSalesPerson.NMSALES,tblSalesPerson.DIVISI
                                     HAVING (MONTH(Tgl) = '".$bulan."') AND (YEAR(Tgl) = '".$tahun."') ORDER BY Total DESC";
-                                     $stmt  = sqlsrv_query($conn,$sql) or die ("Query  salah:".sqlsrv_error());
+                                     $stmt  = sqlsrv_query($conn,$sql) or die(print_r(sqlsrv_errors(), true));
                                     while ($kolomData = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
                                     ?>
                                     <tr>
@@ -222,18 +222,18 @@
                                     FROM TblFak
                                     GROUP BY YEAR(TblFak.Tgl), MONTH(TblFak.Tgl)
                                     HAVING (YEAR(TblFak.Tgl) = '".$tahun."') AND (MONTH(TblFak.Tgl) = '".$bulan."')" ;
-                                    $stmt  = sqlsrv_query($conn,$sql) or die ("Query  salah:".sqlsrv_error());
+                                    $stmt  = sqlsrv_query($conn,$sql) or die(print_r(sqlsrv_errors(), true));
                                     $data = sqlsrv_fetch_array($stmt);
                                     echo "<b>" . number_format($data['Jml_total']) . " </b>";
                                     }else{
                                     
                                        $nomor = 1;
-                                      $sql  = "SELECT TblFak.KdSales, MONTH(TblFak.Tgl) AS Bulan, YEAR(TblFak.Tgl) AS Tahun, SUM(TblFak.SubTotal-TblFak.Discount) AS Total, tblSalesPerson.NMSALES,tblSalesPerson.DIVISI,tblSalesPerson.DIVISI
-                                    FROM TblFak INNER JOIN
-                                    tblSalesPerson ON TblFak.KdSales = tblSalesPerson.KDSALES
-                                    GROUP BY TblFak.KdSales, MONTH(TblFak.Tgl), YEAR(TblFak.Tgl), tblSalesPerson.NMSALES,tblSalesPerson.DIVISI,tblSalesPerson.DIVISI
-                                    HAVING (MONTH(Tgl) = '".$bulan."') AND (YEAR(Tgl) = '".$tahun."') AND (tblSalesPerson.DIVISI = '".$DivisiLogin."') ORDER BY Total DESC";
-                                    $stmt  = sqlsrv_query($conn,$sql) or die ("Query  salah:".sqlsrv_error());
+                                      $sql  = "SELECT TblFak.KdSales, MONTH(TblFak.Tgl) AS Bulan, YEAR(TblFak.Tgl) AS Tahun, SUM(TblFak.SubTotal-TblFak.Discount) AS Total, tblSalesPerson.NMSALES,tblSalesPerson.DIVISI,tblSalesPerson.SEKTOR_DIV
+                                      FROM TblFak INNER JOIN
+                                      tblSalesPerson ON TblFak.KdSales = tblSalesPerson.KDSALES
+                                      GROUP BY TblFak.KdSales, MONTH(TblFak.Tgl), YEAR(TblFak.Tgl), tblSalesPerson.NMSALES,tblSalesPerson.DIVISI,tblSalesPerson.SEKTOR_DIV
+                                      HAVING (MONTH(Tgl) = '".$bulan."') AND (YEAR(Tgl) = '".$tahun."') AND (tblSalesPerson.SEKTOR_DIV = '".$DivisiLogin."') ORDER BY Total DESC";
+                                    $stmt  = sqlsrv_query($conn,$sql) or die(print_r(sqlsrv_errors(), true));
                                     while ($kolomData = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
                                     ?>
                                     <tr>
@@ -247,12 +247,12 @@
                                     <tr>
                                     <th colspan="4">JUMLAH</th>
                                     <th style="text-align:right"><?php 
-                                    $sql = "SELECT SUM(TblFak.SubTotal - TblFak.Discount) AS Jml_total, YEAR(TblFak.Tgl) AS Tahun, MONTH(TblFak.Tgl) AS bulan,tblSalesPerson.DIVISI
+                                    $sql = "SELECT SUM(TblFak.SubTotal - TblFak.Discount) AS Jml_total, YEAR(TblFak.Tgl) AS Tahun, MONTH(TblFak.Tgl) AS bulan,tblSalesPerson.SEKTOR_DIV
                                     FROM TblFak INNER JOIN
                                     tblSalesPerson ON TblFak.KdSales = tblSalesPerson.KDSALES
-                                    GROUP BY YEAR(TblFak.Tgl), MONTH(TblFak.Tgl),tblSalesPerson.DIVISI
-                                    HAVING      (YEAR(TblFak.Tgl) = '".$tahun."') AND (MONTH(TblFak.Tgl) = '".$bulan."') AND (tblSalesPerson.DIVISI = '".$DivisiLogin."')" ;
-                                    $stmt  = sqlsrv_query($conn,$sql) or die ("Query  salah:".sqlsrv_error());
+                                    GROUP BY YEAR(TblFak.Tgl), MONTH(TblFak.Tgl),tblSalesPerson.SEKTOR_DIV
+                                    HAVING      (YEAR(TblFak.Tgl) = '".$tahun."') AND (MONTH(TblFak.Tgl) = '".$bulan."') AND (tblSalesPerson.SEKTOR_DIV = '".$DivisiLogin."')" ;
+                                    $stmt  = sqlsrv_query($conn,$sql) or die(print_r(sqlsrv_errors(), true));
                                     $data = sqlsrv_fetch_array($stmt);
                                     echo "<b>" . number_format($data['Jml_total']) . " </b>";
                                     }
@@ -285,7 +285,7 @@
                                         TblIvType ON tblIvMst.Type = TblIvType.KdType
                                         GROUP BY MONTH(TblFak.Tgl), YEAR(TblFak.Tgl), TblIvType.NmType
                                         HAVING (MONTH(TblFak.Tgl) = '".$bulan."') AND (YEAR(TblFak.Tgl) = '".$tahun."') ORDER BY Total DESC";
-                                         $stmt  = sqlsrv_query($conn,$sql) or die ("Query  salah:".sqlsrv_error());
+                                         $stmt  = sqlsrv_query($conn,$sql) or die(print_r(sqlsrv_errors(), true));
                                         while ($kolomData = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
                               
                             
@@ -303,20 +303,20 @@
                                         FROM TblFak
                                         GROUP BY MONTH(Tgl), YEAR(Tgl)
                                         HAVING  (MONTH(Tgl) = '".$bulan."') AND (YEAR(Tgl) = '".$tahun."') " ;
-                            $stmt  = sqlsrv_query($conn,$sql) or die ("Query  salah:".sqlsrv_error());
+                            $stmt  = sqlsrv_query($conn,$sql) or die(print_r(sqlsrv_errors(), true));
                             $data = sqlsrv_fetch_array($stmt);
                             echo "<b>" . number_format($data['Jml_total']) . " </b>";
                             }else{
                                  $nomor = 1;
-                                        $sql  = "SELECT TblIvType.NmType, MONTH(TblFak.Tgl) AS bulan, YEAR(TblFak.Tgl) AS tahun, SUM(CAST(dbo.TblFakDtl.Jumlah * (1 - dbo.TblFak.PrsDisc1 / 100) AS DECIMAL(14, 2))) AS Total,tblSalesPerson.divisi,tblSalesPerson.DIVISI
+                                        $sql  = "SELECT TblIvType.NmType, MONTH(TblFak.Tgl) AS bulan, YEAR(TblFak.Tgl) AS tahun, SUM(CAST(dbo.TblFakDtl.Jumlah * (1 - dbo.TblFak.PrsDisc1 / 100) AS DECIMAL(14, 2))) AS Total,tblSalesPerson.divisi,tblSalesPerson.SEKTOR_DIV
                                         FROM TblFak INNER JOIN
                                         TblFakDtl ON TblFak.NoBukti = TblFakDtl.NoBukti INNER JOIN
                                         tblIvMst ON TblFakDtl.KdBrg = tblIvMst.KdBrg INNER JOIN
                                         TblIvType ON tblIvMst.Type = TblIvType.KdType INNER JOIN
                                         tblSalesPerson ON TblFak.KdSales = tblSalesPerson.KDSALES
-                                        GROUP BY MONTH(TblFak.Tgl), YEAR(TblFak.Tgl), TblIvType.NmType,tblSalesPerson.divisi,tblSalesPerson.DIVISI
-                                        HAVING (MONTH(TblFak.Tgl) = '".$bulan."') AND (YEAR(TblFak.Tgl) = '".$tahun."') AND (tblSalesPerson.DIVISI='".$DivisiLogin."')ORDER BY Total DESC";
-                                        $stmt  = sqlsrv_query($conn,$sql) or die ("Query  salah:".sqlsrv_error());
+                                        GROUP BY MONTH(TblFak.Tgl), YEAR(TblFak.Tgl), TblIvType.NmType,tblSalesPerson.divisi,tblSalesPerson.SEKTOR_DIV
+                                        HAVING (MONTH(TblFak.Tgl) = '".$bulan."') AND (YEAR(TblFak.Tgl) = '".$tahun."') AND (tblSalesPerson.SEKTOR_DIV='".$DivisiLogin."')ORDER BY Total DESC";
+                                        $stmt  = sqlsrv_query($conn,$sql) or die(print_r(sqlsrv_errors(), true));
                                         while ($kolomData = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
                               
                             
@@ -330,15 +330,15 @@
                             <tr>
                                 <th colspan="2">JUMLAH</th>
                                 <th style="text-align:right"><?php 
-                                         $sql = "SELECT MONTH(TblFak.Tgl) AS bulan, YEAR(TblFak.Tgl) AS tahun, SUM(CAST(dbo.TblFakDtl.Jumlah * (1 - dbo.TblFak.PrsDisc1 / 100) AS DECIMAL(14, 2))) AS Jml_total,tblSalesPerson.DIVISI
-                                        FROM TblFak INNER JOIN
-                                        TblFakDtl ON TblFak.NoBukti = TblFakDtl.NoBukti INNER JOIN
-                                        tblIvMst ON TblFakDtl.KdBrg = tblIvMst.KdBrg INNER JOIN
-                                        TblIvType ON tblIvMst.Type = TblIvType.KdType INNER JOIN
-                                        tblSalesPerson ON TblFak.KdSales = tblSalesPerson.KDSALES
-                                        GROUP BY MONTH(TblFak.Tgl), YEAR(TblFak.Tgl),tblSalesPerson.DIVISI
-                                        HAVING (MONTH(TblFak.Tgl) = '".$bulan."') AND (YEAR(TblFak.Tgl) = '".$tahun."') AND (tblSalesPerson.DIVISI='".$DivisiLogin."')";
-                            $stmt  = sqlsrv_query($conn,$sql) or die ("Query  salah:".sqlsrv_error());
+                                         $sql = "SELECT MONTH(TblFak.Tgl) AS bulan, YEAR(TblFak.Tgl) AS tahun, SUM(CAST(dbo.TblFakDtl.Jumlah * (1 - dbo.TblFak.PrsDisc1 / 100) AS DECIMAL(14, 2))) AS Jml_total,tblSalesPerson.SEKTOR_DIV
+                                         FROM TblFak INNER JOIN
+                                         TblFakDtl ON TblFak.NoBukti = TblFakDtl.NoBukti INNER JOIN
+                                         tblIvMst ON TblFakDtl.KdBrg = tblIvMst.KdBrg INNER JOIN
+                                         TblIvType ON tblIvMst.Type = TblIvType.KdType INNER JOIN
+                                         tblSalesPerson ON TblFak.KdSales = tblSalesPerson.KDSALES
+                                         GROUP BY MONTH(TblFak.Tgl), YEAR(TblFak.Tgl),tblSalesPerson.SEKTOR_DIV
+                                         HAVING (MONTH(TblFak.Tgl) = '".$bulan."') AND (YEAR(TblFak.Tgl) = '".$tahun."') AND (tblSalesPerson.SEKTOR_DIV='".$DivisiLogin."')";
+                            $stmt  = sqlsrv_query($conn,$sql) or die(print_r(sqlsrv_errors(), true));
                             $data = sqlsrv_fetch_array($stmt);
                             echo "<b>" . number_format($data['Jml_total']) . " </b>";
 

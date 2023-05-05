@@ -17,7 +17,17 @@ if($_GET) {
 		
 		case 'Inventory' :				
 			if(!file_exists ("halaman/inventory.php")) die ("Sorry Empty Page!"); 
-			include "halaman/inventory.php";	break;			
+			include "halaman/inventory.php";	break;
+			case 'ListInv':
+			if (!file_exists("halaman/list-inv.php")) die("Sorry Empty Page!");
+			include "halaman/list-inv.php";
+			break;
+		case 'pengiriman' :				
+			if(!file_exists ("halaman/pengiriman.php")) die ("Sorry Empty Page!"); 
+			include "halaman/pengiriman.php";	break;
+		case 'InventoryExpired' :				
+				if(!file_exists ("halaman/inventoryexpired.php")) die ("Sorry Empty Page!"); 
+				include "halaman/inventoryexpired.php";	break;			
 
 		case 'Customer' :				
 			if(!file_exists ("halaman/customer.php")) die ("Sorry Empty Page!"); 
@@ -62,9 +72,10 @@ else {
 			include "halaman/home.php";	
 			}elseif ( $_SESSION['login']=="se" ){
 			include "halaman/home-user-se.php";	
+			}elseif ( $_SESSION['login']=="expedisi" ){
+			include "halaman/pengiriman.php";	
 			}else{
 			include "halaman/home-user.php";
 			}
 	
 }
-?>
