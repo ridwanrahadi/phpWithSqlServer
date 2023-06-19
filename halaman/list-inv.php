@@ -165,13 +165,19 @@ $kdsales    = isset($_POST['txtcari3']) ? $_POST['txtcari3'] : '';
         $id_cust = $_POST['id_cust'];
         $txtkredit = $_POST['kredit'];
         $checkbox = $_POST['whitelist'];
+        $checkbox2 = $_POST['proteklimit'];
         if ($checkbox == "on") {
             $whitelist = 1;
         } else {
             $whitelist = 0;
         }
+        if ($checkbox2 == "on") {
+            $proteklimit = 1;
+        } else {
+            $proteklimit = 0;
+        }
         //set terkirim
-        $updateSql = "UPDATE tblCustomer SET KreditLimit = '$txtkredit',whitelist='$whitelist' WHERE KdCust='" . $id_cust . "'";
+        $updateSql = "UPDATE tblCustomer SET KreditLimit = '$txtkredit',whitelist='$whitelist',ProtekLimit='$proteklimit' WHERE KdCust='" . $id_cust . "'";
         sqlsrv_query($conn, $updateSql) or die(print_r(sqlsrv_errors(), true));
         echo "<script>alert('Kredit limit : {$id_cust} Berhasil Diupdate !!!');</script>";
     }

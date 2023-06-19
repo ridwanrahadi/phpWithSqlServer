@@ -38,7 +38,11 @@ $kolomData = sqlsrv_fetch_array($myQry);
     <input type="checkbox" name="whitelist" <?php if ($kolomData['Whitelist'] == 1) {
                                                 echo "checked";
                                             }  ?> /> White list
+    <input type="checkbox" name="proteklimit" <?php if ($kolomData['ProtekLimit'] == 1) {
+                                                    echo "checked";
+                                                }  ?> /> Black list
 </div>
+
 
 <div class="modal-footer">
     <input type="hidden" name="id_cust" value="<?php echo $_POST['idx']; ?>">

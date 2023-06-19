@@ -97,7 +97,7 @@ $kdsales    = isset($_POST['txtcari3']) ? $_POST['txtcari3'] : '';
             <div class="panel-footer"><small>Data akan ditampikan max 1000 baris, gunakan filter lebih spesifik agar
                     data yang dicari dapat ditampilkan...</small></div>
         </div>
-        <table id="example" class="display nowrap" style="width:100%">
+        <table id="example" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th></th>

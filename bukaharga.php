@@ -13,8 +13,11 @@ error_reporting(E_ALL ^ E_NOTICE);
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="DataTables/datatables.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+  
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
+    
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <title>Buka Harga</title>
@@ -60,7 +63,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 
     <div class="container">
 
-        <table id="tabel" class="display nowrap" style="width:100%">
+        <table id="tabel" class="display" style="width:100%">
             <thead>
                 <tr>
                     <th>Kode Barang</th>

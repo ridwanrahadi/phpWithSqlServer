@@ -45,7 +45,7 @@ $user = $_SESSION['username'];
         </div>
     </div>
     <div class="container">
-        <table id="tabelinventory" class="stripe" style="width:100%">
+        <table id="tabelinventory" class="display small" style="width:100%">
             <thead>
                 <tr>
                     <th></th>

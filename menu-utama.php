@@ -83,9 +83,7 @@ while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
 
                     <ul class="nav navbar-nav navbar-right">
 
-                       <!-- <li><a href="menu-utama.php?page=Sales Order" target="_self">SALES ORDER</a></li> -->
-                        
-                      <li><a href="http://masuya.ddnsfree.com:8080/end" target="_self">SALES ORDER</a></li>
+                        <li><a href="http://masuya.ddnsfree.com:8080/end" target="_self">SALES ORDER</a></li>
                         <li><a href="logout.php">Logout</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
@@ -203,9 +201,10 @@ while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
             }
         });
     });
-    function reset_customer_select2(){
-       $('#txtcari2').val(null).trigger('change');
-       $('#txtcari1').val(null).trigger('change');
+
+    function reset_customer_select2() {
+        $('#txtcari2').val(null).trigger('change');
+        $('#txtcari1').val(null).trigger('change');
     }
     </script>
 
